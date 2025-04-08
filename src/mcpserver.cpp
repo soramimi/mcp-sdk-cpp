@@ -105,9 +105,9 @@ void McpServer::run()
 				writer.number("id", atoi(request.id.c_str()));
 				writer.object("result", [&](){
 					writer.array("tools", [&](){
-						writer.object({}, [&](){
-							for (auto const &x : methods_) {
-								std::shared_ptr<AbstractMcpTool> const &tool = x.second;
+						for (auto const &method : methods_) {
+							writer.object({}, [&](){
+								std::shared_ptr<AbstractMcpTool> const &tool = method.second;
 								ToolSchema const &schema = tool->schema();
 								writer.string("name", schema.name);
 								writer.string("description", schema.description);
@@ -128,8 +128,8 @@ void McpServer::run()
 									writer.string("title", schema.title);
 									writer.string("type", schema.type);
 								});
-							}
-						});
+							});
+						}
 					});
 				});
 			});
