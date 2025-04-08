@@ -26,7 +26,7 @@ public:
 		std::string type;
 	};
 
-	class AbstractMcpTool {
+	class AbstractTool {
 		friend class McpServer;
 	private:
 		McpServer::ToolSchema schema_;
@@ -37,7 +37,7 @@ public:
 			schema().properties.emplace_back(name, title, type);
 		}
 	public:
-		AbstractMcpTool(std::string const &name, std::string const &description)
+		AbstractTool(std::string const &name, std::string const &description)
 		{
 			schema_.name = name;
 			schema_.description = description;
@@ -121,9 +121,9 @@ private:
 public:
 	void test();
 
-	std::map<std::string, std::shared_ptr<AbstractMcpTool>> methods_;
+	std::map<std::string, std::shared_ptr<AbstractTool>> methods_;
 
-	void install_tool(std::shared_ptr<AbstractMcpTool> const &tool);
+	void install_tool(std::shared_ptr<AbstractTool> const &tool);
 
 	void run();
 private:

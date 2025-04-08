@@ -3,10 +3,10 @@
 #include "strformat.h"
 #include "toi.h"
 
-class Tool_add : public McpServer::AbstractMcpTool {
+class Tool_add : public McpServer::AbstractTool {
 public:
 	Tool_add()
-		: AbstractMcpTool("add", "Add two numbers")
+		: AbstractTool("add", "Add two numbers")
 	{
 		add_property("a", "A", "integer");
 		add_property("b", "B", "integer");
@@ -21,10 +21,10 @@ public:
 	}
 };
 
-class Tool_mul : public McpServer::AbstractMcpTool {
+class Tool_mul : public McpServer::AbstractTool {
 public:
 	Tool_mul()
-		: AbstractMcpTool("mul", "multiply two numbers")
+		: AbstractTool("mul", "multiply two numbers")
 	{
 		add_property("a", "A", "integer");
 		add_property("b", "B", "integer");

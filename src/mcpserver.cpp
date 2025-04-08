@@ -43,7 +43,7 @@ void McpServer::test()
 	}
 }
 
-void McpServer::install_tool(const std::shared_ptr<AbstractMcpTool> &tool)
+void McpServer::install_tool(const std::shared_ptr<AbstractTool> &tool)
 {
 	std::string name = tool->schema().name;
 	methods_[name] = tool;
@@ -107,7 +107,7 @@ void McpServer::run()
 					writer.array("tools", [&](){
 						for (auto const &method : methods_) {
 							writer.object({}, [&](){
-								std::shared_ptr<AbstractMcpTool> const &tool = method.second;
+								std::shared_ptr<AbstractTool> const &tool = method.second;
 								ToolSchema const &schema = tool->schema();
 								writer.string("name", schema.name);
 								writer.string("description", schema.description);
@@ -177,7 +177,7 @@ void McpServer::run()
 			std::string content_text;
 			auto method_pair = methods_.find(request.params.name);
 			if (method_pair != methods_.end()) {
-				std::shared_ptr<AbstractMcpTool> const &tool = method_pair->second;
+				std::shared_ptr<AbstractTool> const &tool = method_pair->second;
 				size_t argc = tool->schema().properties.size();
 				std::vector<std::string> args(argc);
 				for (size_t i = 0; i < argc; i++) {
