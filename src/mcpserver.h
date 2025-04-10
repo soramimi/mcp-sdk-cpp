@@ -125,6 +125,11 @@ public:
 
 	void install_tool(std::shared_ptr<AbstractTool> const &tool);
 
+	template <typename T, typename... Args> void emplace_tool(Args&&...args)
+	{
+		install_tool(std::make_shared<T>(std::forward<Args>(args)...));
+	}
+
 	void run();
 private:
 	static Message parse_message(const std::string &line);

@@ -42,8 +42,8 @@ public:
 int main()
 {
 	McpServer mcpsrv;
-	mcpsrv.install_tool(std::make_shared<Tool_add>());
-	mcpsrv.install_tool(std::make_shared<Tool_mul>());
+	mcpsrv.emplace_tool<Tool_add>();
+	mcpsrv.emplace_tool<Tool_mul>();
 	mcpsrv.run();
 	return 0;
 }
