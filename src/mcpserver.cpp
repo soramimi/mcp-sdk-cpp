@@ -57,8 +57,8 @@ void McpServer::run()
 		Message request = parse_message(line);
 		if (request.method == "initialize") {
 			std::vector<char> vec;
-			jstream::Writer writer([](char const *p, int n){
-				fwrite(p, 1, n, stdout);
+			jstream::Writer writer([&](char const *p, int n){
+				vec.insert(vec.end(), p, p + n);
 			});
 			writer.enable_indent(false);
 			writer.enable_newline(false);
