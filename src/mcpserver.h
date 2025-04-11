@@ -119,7 +119,7 @@ private:
 	};
 
 public:
-	void test();
+	void _debug();
 
 	std::map<std::string, std::shared_ptr<AbstractTool>> methods_;
 

@@ -9,9 +9,9 @@ static inline std::string getline()
 	return line;
 }
 
-void McpServer::test()
+void McpServer::_debug()
 {
-	if (1) {
+	if (0) {
 		std::string line = R"---({"method": "initialize","params": {"protocolVersion": "2024-11-05","capabilities": {"roots": {"listChanged": true}},"clientInfo": {"name": "mcp","version": "0.1.0"}},"jsonrpc": "2.0","id": 0}})---";
 		Message request = parse_message(line);
 		return;
@@ -172,7 +172,7 @@ void McpServer::run()
 			continue;
 		}
 		if (request.method == "tools/call") {
-			// call function
+			// call tool
 			bool isError = true;
 			std::string content_text;
 			auto method_pair = methods_.find(request.params.name);
@@ -193,7 +193,7 @@ void McpServer::run()
 			} else {
 				isError = true;
 			}
-			// return result
+			// result
 			std::vector<char> vec;
 			jstream::Writer writer([&](char const *p, int n){
 				vec.insert(vec.end(), p, p + n);
@@ -224,13 +224,11 @@ void McpServer::run()
 
 McpServer::Message McpServer::parse_message(const std::string &line)
 {
-	char const *begin = line.c_str();
-	char const *end = begin + line.size();
 	Message request;
 	Message::Result::Tool tool;
 	Message::Result::Tool::InputSchema::Property property;
 
-	jstream::Reader reader(begin, end);
+	jstream::Reader reader(line);
 	while (reader.next()) {
 		if (reader.match("{method")) {
 			request.method = reader.string();
